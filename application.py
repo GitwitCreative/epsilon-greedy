@@ -93,7 +93,7 @@ if report == "Epsilon Greedy v0.2":
 		# of the mean reward against the number of times the game is played.
 		plt.xlabel("Number of patients simulated")
 		plt.ylabel("Average Conversion Rate")
-		column_names = ["Number of times played", "Average Reward"]
+		column_names = ["Number of patients simulated", "Average Conversion Rate"]
 		df = pd.DataFrame(columns = column_names)
 		for i in range(1000):
 			if random.random() > eps: #greedy exploitation action
@@ -108,10 +108,10 @@ if report == "Epsilon Greedy v0.2":
 			runningMean = np.mean(av[:,1])
 			#st.write(i, runningMean)
 			#st.write(df)
-			dftmp = pd.DataFrame([{"Number of times played": i, "Average Reward": runningMean, "animation": i}])
+			dftmp = pd.DataFrame([{"Number patients simulated": i, "Average Conversion Rate": runningMean, "animation": i}])
 			#st.write(dftmp)
 			df = df.append(dftmp)
-		fig = px.scatter(df, x="Number of times played", y="Average Reward", range_x=[0,1000], range_y=[0,1])
+		fig = px.scatter(df, x="Number patients simulated", y="Average Conversion Rate", range_x=[0,1000], range_y=[0,1])
 		fig.update_traces(marker=dict(size=16,
 		                              line=dict(width=2,
 		                                        color='DarkSlateGrey')),
@@ -191,7 +191,7 @@ if report == "Epsilon Greedy v0.1":
 		# of the mean reward against the number of times the game is played.
 		plt.xlabel("Number of patients simulated")
 		plt.ylabel("Average Conversion Rate")
-		column_names = ["Number of times played", "Average Reward"]
+		column_names = ["Number patients simulated", "Average Conversion Rate"]
 		df = pd.DataFrame(columns = column_names)
 		for i in range(500):
 			if random.random() > eps: #greedy exploitation action
@@ -206,10 +206,10 @@ if report == "Epsilon Greedy v0.1":
 			runningMean = np.mean(av[:,1])
 			#st.write(i, runningMean)
 			#st.write(df)
-			dftmp = pd.DataFrame([{"Number of times played": i, "Average Reward": runningMean, "animation": i}])
+			dftmp = pd.DataFrame([{"Number patients simulated": i, "Average Conversion Rate": runningMean, "animation": i}])
 			#st.write(dftmp)
 			df = df.append(dftmp)
-		fig = px.scatter(df, x="Number of times played", y="Average Reward", range_x=[0,500], range_y=[0,1])
+		fig = px.scatter(df, x="Number patients simulated", y="Average Conversion Rate", range_x=[0,500], range_y=[0,1])
 		fig.update_traces(marker=dict(size=16,
 		                              line=dict(width=2,
 		                                        color='DarkSlateGrey')),
