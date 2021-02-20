@@ -118,16 +118,16 @@ if report == "Epsilon Greedy v0.2":
 		                  selector=dict(mode='markers+lines'))
 		st.plotly_chart(fig)
 		st.write("Try it again. Since you start with no a-priori knowledge each time, notice how the average conversion rate varies highly in the beginning and then settles into a steady state after enough learnings.")
-		st.write('See it in motion!')
-		fig = px.scatter(df, x="Number of times played", y="Average Reward", animation_frame='animation', range_x=[0,200], range_y=[0,1])
-		fig.update_traces(marker=dict(size=16,
-		                              line=dict(width=2,
-		                                        color='DarkSlateGrey')),
-		                  selector=dict(mode='markers'))
-		fig.update_traces(line=dict(dash="dot", width=2, color='DarkSlateGrey'), selector=dict(type='scatter', mode='lines'))
+		#st.write('See it in motion!')
+		#fig = px.scatter(df, x="Number of times played", y="Average Reward", animation_frame='animation', range_x=[0,200], range_y=[0,1])
+		#fig.update_traces(marker=dict(size=16,
+		#                              line=dict(width=2,
+		#                                        color='DarkSlateGrey')),
+		#                  selector=dict(mode='markers'))
+		#fig.update_traces(line=dict(dash="dot", width=2, color='DarkSlateGrey'), selector=dict(type='scatter', mode='lines'))
 
 		#fig = px.line(df, x="Number of times played", y="Average Reward", animation_frame='animation', range_x=[0,500], range_y=[0,10])
-		st.plotly_chart(fig)
+		#st.plotly_chart(fig)
 
 if report == "Epsilon Greedy v0.1":
 	st.header("Epsilon Greedy v0.1")
@@ -216,16 +216,16 @@ if report == "Epsilon Greedy v0.1":
 		                  selector=dict(mode='markers+lines'))
 		st.plotly_chart(fig)
 		st.write("Try it again. Since you start with no a-priori knowledge each time, notice how the average conversion rate varies highly in the beginning and then settles into a steady state after enough learnings.")
-		st.write('See it in motion!')
-		fig = px.scatter(df, x="Number of times played", y="Average Reward", animation_frame='animation', range_x=[0,200], range_y=[0,1])
-		fig.update_traces(marker=dict(size=16,
-		                              line=dict(width=2,
-		                                        color='DarkSlateGrey')),
-		                  selector=dict(mode='markers'))
-		fig.update_traces(line=dict(dash="dot", width=2, color='DarkSlateGrey'), selector=dict(type='scatter', mode='lines'))
+		#st.write('See it in motion!')
+		#fig = px.scatter(df, x="Number of times played", y="Average Reward", animation_frame='animation', range_x=[0,200], range_y=[0,1])
+		#fig.update_traces(marker=dict(size=16,
+		#                              line=dict(width=2,
+		#                                        color='DarkSlateGrey')),
+		#                  selector=dict(mode='markers'))
+		#fig.update_traces(line=dict(dash="dot", width=2, color='DarkSlateGrey'), selector=dict(type='scatter', mode='lines'))
 
 		#fig = px.line(df, x="Number of times played", y="Average Reward", animation_frame='animation', range_x=[0,500], range_y=[0,10])
-		st.plotly_chart(fig)
+		#st.plotly_chart(fig)
 
 if report == "Epsilon Greedy v0":
 	st.header("Epsilon Greedy v0")
