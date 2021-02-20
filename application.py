@@ -12,14 +12,14 @@ if report == "Epsilon Greedy v0.2":
 	st.header("Epsilon Greedy v0.2")
 	st.subheader("3rd Proof of concept for reinforcement learning algorithm")
 	st.subheader("AKA - The small variations on a well performing curve experiment")
-	st.write('Clicking the "Compute" button below will simulate a well performing curve and 50 variations of it for 500 patient check-in attempts.')
+	st.write('Clicking the "Compute" button below will simulate a well performing curve and 100 variations of it for 1000 patient check-in attempts.')
 	st.write('For Epsilon Greedy v0.2, we aren\'t actually going to specify what the well performing curve is.  We will just assume that we are likely to guess a large amount of slightly better or worse variations and a small amount of really good or bad variations according to a normal distribution around a mean of the base conversion rate.  See the curve below to see the distribution of available conversion rates in this model.')
 
 	# initialize a random seed
 	np.random.seed(5)
 
 	# Set number of arms for the bandit problem
-	n=500
+	n=100
 
 	#generate the distribution of curves and associated probabilities.
 	mu, sigma = 0.318, 0.035
@@ -88,14 +88,14 @@ if report == "Epsilon Greedy v0.2":
 
 	if st.button('Compute'):
 		st.write("Let's Gamble")
-		st.write("Simulating 500 patients using arriv real quick.")
+		st.write("Simulating 1000 patients using arriv real quick.")
 		# Here is the main loop.  Let's play it 500 times and display a matplotlib scatter plot 
 		# of the mean reward against the number of times the game is played.
 		plt.xlabel("Number of patients simulated")
 		plt.ylabel("Average Conversion Rate")
 		column_names = ["Number of times played", "Average Reward"]
 		df = pd.DataFrame(columns = column_names)
-		for i in range(1500):
+		for i in range(1000):
 			if random.random() > eps: #greedy exploitation action
 				choice = bestArm(av)
 				thisAV = np.array([[choice, reward(arms[choice])]])
@@ -111,7 +111,7 @@ if report == "Epsilon Greedy v0.2":
 			dftmp = pd.DataFrame([{"Number of times played": i, "Average Reward": runningMean, "animation": i}])
 			#st.write(dftmp)
 			df = df.append(dftmp)
-		fig = px.scatter(df, x="Number of times played", y="Average Reward", range_x=[0,1500], range_y=[0,1])
+		fig = px.scatter(df, x="Number of times played", y="Average Reward", range_x=[0,1000], range_y=[0,1])
 		fig.update_traces(marker=dict(size=16,
 		                              line=dict(width=2,
 		                                        color='DarkSlateGrey')),
