@@ -421,12 +421,14 @@ if report == "Epsilon Greedy v0.4":
 		plt.ylabel("Average Conversion Rate")
 		column_names = ["Number of patients simulated", "Average Conversion Rate", "animation", "Shape"]
 		df = pd.DataFrame(columns = column_names)
-		for i in range(1000):
+		new_shape = shape.copy()
+		for i in range(601):
 			if (i % 200 ==0):
 				st.write('Simulated ', i, 'patients so far')
 			if random.random() > eps: #greedy exploitation action
 				choice = bestArm(av)
-				thisAV = np.array([[choice, reward(arms[choice]), shape]])
+				#new_shape = shape.copy()
+				thisAV = np.array([[choice, reward(arms[choice]), new_shape]])
 				av = np.concatenate((av, thisAV), axis=0)
 			else: #exploration action
 			# This is the key step in which we vary the available conversion rate by a fixed amount
@@ -435,19 +437,24 @@ if report == "Epsilon Greedy v0.4":
 				# choose random bar to vary
 				bar_choice = random.choice(list(enumerate(shape)))[0]
 				# add or subtract a random amount from the chosen bar value
-				shape[bar_choice] = shape[bar_choice] + 0.05*(random.random() - 0.5)
+				new_shape = new_shape.copy()
+				new_shape[bar_choice] = new_shape[bar_choice] + 0.05*(random.random() - 0.5)
+				#st.write('Shape updated')
 				#st.write(shape[bar_choice])
-				thisAV = np.array([[choice, reward(arms[choice]), shape]]) #choice, reward, shape
+				thisAV = np.array([[choice, reward(arms[choice]), new_shape]]) #choice, reward, shape
 				av = np.concatenate((av, thisAV), axis=0) #add to our action-value memory array
 				
 			#calculate the mean reward
 			runningMean = np.mean(av[:,1])
 			#st.write(i, runningMean)
 			#st.write(df)
-			dftmp = pd.DataFrame([{"Number patients simulated": i, "Average Conversion Rate": runningMean, "animation": i, "Shape": shape}])
+			dftmp = pd.DataFrame([{"Number of patients simulated": i, "Average Conversion Rate": runningMean, "animation": i, "Shape": new_shape}])
 			#st.write(dftmp)
-			df = df.append(dftmp)
-		fig = px.scatter(df, x="Number patients simulated", y="Average Conversion Rate", animation_frame="Number patients simulated", range_x=[0,1000], range_y=[0,1])
+			#st.write(av)
+			#df = df.append(dftmp, ignore_index=True)
+			df = pd.concat([df, dftmp])
+			#st.write(df)
+		fig = px.scatter(df, x="Number of patients simulated", y="Average Conversion Rate", range_x=[0,1000], range_y=[0,1])
 		fig.update_traces(marker=dict(size=16,
 		                              line=dict(width=2,
 		                                        color='DarkSlateGrey')),
@@ -456,9 +463,9 @@ if report == "Epsilon Greedy v0.4":
 		st.write("Try it again. Since you start with no a-priori knowledge each time, notice how the average conversion rate varies highly in the beginning and then settles into a steady state after enough learnings.")
 		#st.write('See it in motion!')
 		st.write('Final "Evolved" curve shape')
-		fig = px.bar(shape, orientation='h')
+		fig = px.bar(new_shape, orientation='h')
 		fig.update_layout(transition_duration=1)
-#		fig = px.bar(df, y=shape, orientation='h', animation_frame='animation')
+		#fig = px.bar(df, y=shape, orientation='h', animation_frame='animation')
 		#st.write(df.Shape[0])
 		#st.write(df.Shape[199])
 		#fig = px.bar(df, x=df.Shape[0], y=list(shape)[0], orientation='h')
@@ -470,6 +477,24 @@ if report == "Epsilon Greedy v0.4":
 		#fig.update_traces(line=dict(dash="dot", width=2, color='DarkSlateGrey'), selector=dict(type='scatter', mode='lines'))
 
 		#fig = px.line(df, x="Number of times played", y="Average Reward", animation_frame='animation', range_x=[0,500], range_y=[0,10])
+		st.plotly_chart(fig)
+		#st.write(df)
+
+		#split shape values into their own columns
+		dfplot = pd.DataFrame(df["Shape"].to_list(), columns=['slot_s1','slot_s2','slot_s3','slot_s4','slot_s5','slot_s6','slot_s7'])
+		dfplot = dfplot.reset_index()
+		#st.write(dfplot)
+
+
+		# get data in long format instead of wide format
+		dfplot = pd.wide_to_long(dfplot, stubnames='slot',
+                          i=["index"], j='slots',
+                          sep='_', suffix='\w+').reset_index()
+
+		#st.write(dfplot)
+
+
+		fig = px.bar(dfplot, x="slot", y='slots', animation_frame="index")
 		st.plotly_chart(fig)
 
 if report == "Epsilon Greedy v0.3":
