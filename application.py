@@ -143,7 +143,7 @@ if report == "Epsilon Greedy v0.4":
 		#st.write('See it in motion!')
 		st.write('Final "Evolved" curve shape')
 		fig = px.bar(shape, orientation='h')
-		fig.update_layout(transition_duration=10)
+		fig.update_layout(transition_duration=1)
 #		fig = px.bar(df, y=shape, orientation='h', animation_frame='animation')
 		#st.write(df.Shape[0])
 #		st.write(df.Shape[199])
