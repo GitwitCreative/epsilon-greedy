@@ -133,7 +133,7 @@ if report == "Epsilon Greedy v0.4":
 			dftmp = pd.DataFrame([{"Number patients simulated": i, "Average Conversion Rate": runningMean, "animation": i, "Shape": shape}])
 			#st.write(dftmp)
 			df = df.append(dftmp)
-		fig = px.scatter(df, x="Number patients simulated", y="Average Conversion Rate", range_x=[0,1000], range_y=[0,1])
+		fig = px.scatter(df, x="Number patients simulated", y="Average Conversion Rate", animation_frame="Number patients simulated", animation_group="Average Conversion Rate", range_x=[0,1000], range_y=[0,1])
 		fig.update_traces(marker=dict(size=16,
 		                              line=dict(width=2,
 		                                        color='DarkSlateGrey')),
