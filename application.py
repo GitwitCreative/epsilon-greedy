@@ -447,7 +447,7 @@ if report == "Epsilon Greedy v0.4":
 			dftmp = pd.DataFrame([{"Number patients simulated": i, "Average Conversion Rate": runningMean, "animation": i, "Shape": shape}])
 			#st.write(dftmp)
 			df = df.append(dftmp)
-		fig = px.scatter(df, x="Number patients simulated", y="Average Conversion Rate", range_x=[0,1000], range_y=[0,1])
+		fig = px.scatter(df, x="Number patients simulated", y="Average Conversion Rate", animation_frame="Number patients simulated", range_x=[0,1000], range_y=[0,1])
 		fig.update_traces(marker=dict(size=16,
 		                              line=dict(width=2,
 		                                        color='DarkSlateGrey')),
@@ -457,7 +457,12 @@ if report == "Epsilon Greedy v0.4":
 		#st.write('See it in motion!')
 		st.write('Final "Evolved" curve shape')
 		fig = px.bar(shape, orientation='h')
+<<<<<<< HEAD
 		#fig = px.bar(df, y=shape, orientation='h', animation_frame='animation')
+=======
+		fig.update_layout(transition_duration=1)
+#		fig = px.bar(df, y=shape, orientation='h', animation_frame='animation')
+>>>>>>> 2d1c1c06366a82089a0404ad5e54d36d1ca87a52
 		#st.write(df.Shape[0])
 		#st.write(df.Shape[199])
 		#fig = px.bar(df, x=df.Shape[0], y=list(shape)[0], orientation='h')
